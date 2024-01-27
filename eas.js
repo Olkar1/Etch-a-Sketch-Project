@@ -14,7 +14,9 @@ function PopulatePage(numberOfSqueres){
         const squere = document.createElement('div');
         squere.classList.add('squere');
         squere.addEventListener("mouseenter",function(e){
-            e.target.style.backgroundColor = 'blue';
+            const opacity = getAlphaValue(e.target.style.backgroundColor);
+            e.target.style.backgroundColor = GetRandomColor((opacity-0.1));
+            e.target.style.opa
         });
         container.appendChild(squere);
     }
@@ -30,4 +32,22 @@ function ShowSizePopup(){
     } else {
         alert("Wrong value!");
     }
+}
+function getAlphaValue(color) {
+    const rgbaMatch = color.match(/rgba?\((\d+), (\d+), (\d+), ([\d.]+)\)/);
+    if (rgbaMatch) {
+        const alpha = parseFloat(rgbaMatch[4]);
+        return alpha;
+    } else {
+        return 1;
+    }
+}
+
+function GetRandomColor(opacity){
+    const red = Math.floor(Math.random()*256);
+    const green = Math.floor(Math.random()*256);
+    const blue = Math.floor(Math.random()*256);
+    
+    const randomColor = `rgb(${red},${green},${blue},${opacity})`;
+    return randomColor;
 }
